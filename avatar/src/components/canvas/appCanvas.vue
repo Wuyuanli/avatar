@@ -2,7 +2,7 @@
 
   <div class="outer" >
     <div class="wrap" style="border: 1px solid #ccc;" :class="isRound ? 'circle' : ''">
-      <canvas width="300" height="300" id="c" :class="isRound ? 'circle' : ''" style="background-color: #fff;" ></canvas>
+      <canvas width="300" height="300" id="c" :class="isRound ? 'circle' : ''"  ></canvas>
     </div>
   </div>
 
@@ -48,10 +48,9 @@ import {styleList} from '@/tools/picLists'
 import {addOrReplaceLayer,downloadImage} from '@/tools/common'
 import {deleteControl} from '@/components/canvas/config'
 
-const text = new fabric.Text('上传头像')
+// const text = new fabric.Text('上传头像')
 const isRound = ref(false)
 const styleIndex = ref(1)
-const DrawRef = ref()
 
 function upload() {
   let uploadInput = document.getElementById("upload-input")
@@ -74,10 +73,13 @@ function upload() {
   }
 
 function drawBackground(){
-  canvas.remove(text)
+  // canvas.remove(text)
   fabric.Image.fromURL(
   url,
+  // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxEslOn5MqyIs_lH7CFWt9rienrjoEU0VaVwB73zwHFw&s",
   (img: any)=>{
+    console.log(img)
+    console.log(canvas)
     canvas.setBackgroundImage(
       img,
       canvas.renderAll.bind(canvas),
@@ -93,6 +95,8 @@ function drawBackground(){
 
 function changepic(event:any){
   url = getObjectURL(event.target.files[0]);
+  // url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxEslOn5MqyIs_lH7CFWt9rienrjoEU0VaVwB73zwHFw&s'
+  console.log(url)
   drawBackground()
 }
 
@@ -305,19 +309,7 @@ onMounted(() => {
           background-color: #ff8f1faa;
       }
   }
-.opacity {
-    /* flex: 1; */
-    width: 30vw;
-    padding-bottom: 8px;
-    .el-slider__bar {
-        background: #ff8f1f60;
-    }
-    .el-slider__button {
-        border-color: #ff8f1f60;
-    }
-  }
 }
-
 .download{
   display: flex;
   justify-content: center;
